@@ -1021,10 +1021,6 @@ class WP_Theme_JSON {
 		}
 	}
 
-	public function escape_styles() {
-		// Do nothing.
-	}
-
 	/**
 	 * Removes insecure data from theme.json.
 	 */
