@@ -25,6 +25,7 @@ import {
 	Warning,
 } from '@wordpress/block-editor';
 import { store as reusableBlocksStore } from '@wordpress/reusable-blocks';
+import { ungroup } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -109,9 +110,10 @@ export default function ReusableBlockEdit( { attributes: { ref }, clientId } ) {
 				<ToolbarGroup>
 					<ToolbarButton
 						onClick={ () => convertBlockToStatic( clientId ) }
-					>
-						{ __( 'Convert to regular blocks' ) }
-					</ToolbarButton>
+						label={ __( 'Convert to regular blocks' ) }
+						icon={ ungroup }
+						showTooltip
+					></ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
 			<InspectorControls>
