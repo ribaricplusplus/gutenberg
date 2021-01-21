@@ -113,7 +113,7 @@ export default function ReusableBlockEdit( { attributes: { ref }, clientId } ) {
 						label={ __( 'Convert to regular blocks' ) }
 						icon={ ungroup }
 						showTooltip
-					></ToolbarButton>
+					/>
 				</ToolbarGroup>
 			</BlockControls>
 			<InspectorControls>
