@@ -642,9 +642,11 @@ export function* __experimentalBatch( requests ) {
 			);
 		},
 	};
-	const results = requests.map( ( request ) => request( api ) );
-	yield __unstableAwaitPromise( batch.run() );
-	return yield __unstableAwaitPromise( Promise.all( results ) );
+	const resultPromises = requests.map( ( request ) => request( api ) );
+	const [ , ...results ] = yield __unstableAwaitPromise(
+		Promise.all( [ batch.run(), ...resultPromises ] )
+	);
+	return results;
 }
 
 /**

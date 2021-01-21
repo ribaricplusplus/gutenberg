@@ -340,8 +340,8 @@ describe( '__experimentalBatch', () => {
 			),
 		};
 		const dispatch = () => actions;
-		// Run generator up to `yield __unstableAwaitPromise( batch.run() )`.
-		const { value: awaitPromiseControl1 } = generator.next( dispatch );
+		// Run generator up to `yield __unstableAwaitPromise( ... )`.
+		const { value: awaitPromiseControl } = generator.next( dispatch );
 		expect( actions.saveEntityRecord ).toHaveBeenCalledWith(
 			'root',
 			'widget',
@@ -361,20 +361,13 @@ describe( '__experimentalBatch', () => {
 			{},
 			{ __unstableFetch: expect.any( Function ) }
 		);
-		expect( awaitPromiseControl1 ).toEqual( {
-			type: 'AWAIT_PROMISE',
-			promise: expect.any( Promise ),
-		} );
-		await awaitPromiseControl1.promise;
-		// Run generator up to `yield __unstableAwaitPromise( Promise.all( results ) )`.
-		const { value: awaitPromiseControl2 } = generator.next();
-		expect( awaitPromiseControl2 ).toEqual( {
+		expect( awaitPromiseControl ).toEqual( {
 			type: 'AWAIT_PROMISE',
 			promise: expect.any( Promise ),
 		} );
 		// Run generator to the end.
 		const { value: results } = generator.next(
-			await awaitPromiseControl2.promise
+			await awaitPromiseControl.promise
 		);
 		expect( results ).toEqual( [
 			{ id: 123, created: true },
