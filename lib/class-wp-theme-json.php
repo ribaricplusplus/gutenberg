@@ -885,6 +885,10 @@ class WP_Theme_JSON {
 	 */
 	private function get_css_variables() {
 		$stylesheet = '';
+		if ( ! isset( $this->theme_json['settings'] ) ) {
+			return $stylesheet;
+		}
+
 		$metadata   = $this->get_blocks_metadata();
 		foreach ( $this->theme_json['settings'] as $block_selector => $settings ) {
 			if ( empty( $metadata[ $block_selector ]['selector'] ) ) {
@@ -941,7 +945,11 @@ class WP_Theme_JSON {
 	 */
 	private function get_block_styles() {
 		$stylesheet = '';
-		$metadata   = $this->get_blocks_metadata();
+		if ( ! isset( $this->theme_json['styles'] ) ) {
+			return $stylesheet;
+		}
+
+		$metadata = $this->get_blocks_metadata();
 		foreach ( $this->theme_json['styles'] as $block_selector => $styles ) {
 			if ( empty( $metadata[ $block_selector ]['selector'] ) || empty( $metadata[ $block_selector ]['supports'] ) ) {
 				continue;
@@ -983,7 +991,11 @@ class WP_Theme_JSON {
 	 * @return array Settings per block.
 	 */
 	public function get_settings() {
-		return $this->theme_json['settings'];
+		if ( ! isset( $this->theme_json['settings'] ) ) {
+			return array();
+		} else {
+			return $this->theme_json['settings'];
+		}
 	}
 
 	/**
@@ -1010,7 +1022,7 @@ class WP_Theme_JSON {
 	 * @param WP_Theme_JSON $incoming Data to merge.
 	 */
 	public function merge( $incoming ) {
-		$incoming_data = $incoming->get_raw_data();
+		$incoming_data    = $incoming->get_raw_data();
 		$this->theme_json = array_replace_recursive( $this->theme_json, $incoming_data );
 
 		// The array_replace_recursive algorithm merges at the leaf level.
