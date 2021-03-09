@@ -3,8 +3,7 @@
 This webpack plugin serves two purposes:
 
 -   Externalize dependencies that are available as script dependencies on modern WordPress sites.
--   Add an asset file for each entry point that declares an object with the list of WordPress script dependencies for the
-    entry point. The asset file also contains the current version calculated for the current source code.
+-   Add an asset file for each entry point that declares an object with the list of WordPress script dependencies for the entry point. The asset file also 	     contains the current version calculated for the current source code.
 
 This allows JavaScript bundles produced by webpack to leverage WordPress style dependency sharing
 without an error-prone process of manually maintaining a dependency list.
